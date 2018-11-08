@@ -1,0 +1,49 @@
+{
+  "name": "webpackProject",
+  "version": "0.0.1",
+  "description": "A webpack project",
+  "scripts": {
+    "dev": "webpack-dev-server --config ./build/webpack.build.conf.js --env development",
+    "build": "webpack --config ./build/webpack.build.conf.js --env production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@9-lives",
+  "license": "ISC",
+  "browserslist": [
+    "last 3 version",
+    "> 1%",
+    "not ie < 9",
+    "not ios < 9",
+    "not dead"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "autoprefixer": "^9.3.1",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.1",
+    "eslint": "^5.8.0",
+    "eslint-loader": "^2.1.1",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "mockjs": "^1.0.1-beta3",
+    "node-sass": "^4.10.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "sass-resources-loader": "^2.0.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "axios": "^0.18.0"
+  }
+}

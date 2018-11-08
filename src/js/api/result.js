@@ -1,0 +1,9 @@
+class Result {
+  constructor() {
+
+  }
+
+  isOk () {
+
+  }
+}
