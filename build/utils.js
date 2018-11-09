@@ -22,67 +22,39 @@ function addMulPg({
       conf,
       name,
     })
-    excludeChunks({
-      conf,
-      name,
-    })
-    pagesConf.set(name, {
-      ...pagesConf.get(name),
-      filename: `${buildConf.htmlDir}${name}.html`,
-      template: `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`,
-    })
-
-    conf.plugins.push(new htmlWpkPlugin(params))
+    conf.plugins.push(new htmlWpkPlugin(pagesConf.get(name)))
   }
 
-  // for (let name of pagesConf.keys()) {
-  //   let params = pagesConf.get(name)
-
-  //   if (!params.excludeChunks) {
-  //     // 未手动指定排除代码块
-  //     params.excludeChunks = Array.from(pagesConf.keys()).filter(c => {
-  //       return c !== name
-  //     }) // 
-  //   }
-
-  //   conf.plugins.push(new htmlWpkPlugin(params))
-  // }
   return conf
 
   /**
-   * 排除其他页面各自的 chunk
-   * @param {Object} conf webpack 配置文件拷贝
-   * @param {Object} name 入口文件名
-   */
-  function excludeChunks ({ conf, name }) {
-    for (let name of pagesConf.keys()) {
-      let params = pagesConf.get(name)
-
-      if (!params.excludeChunks) {
-        // 未手动指定排除代码块
-        params.excludeChunks = Array.from(pagesConf.keys()).filter(c => {
-          return c !== name
-        }) // 
-      }
-
-      conf.plugins.push(new htmlWpkPlugin(params))
-    }
-  }
-
-  /**
-   * 初始化参数
+   * 初始化 html-webpack-plugin 参数
    * @param {Object} name 入口文件名
    * @return {Object} html-webpack-plugin 参数
    */
-  function initParams (name) {
+  function initParams(name) {
     let params = pagesConf.get(name)
 
-    if (typeof params === 'undefined') {
+    if (!params) {
       params = {}
     }
 
-    if (typeof params.favicon === 'undefined') {
+    if (!params.favicon) {
+      // bug: favicon.ico 位置输出错误，可以使用 faviconsWebpackPlugin 解决，但是目前不支持 html-webpack-plugin 4.0.0 beta
       params.favicon = 'favicon.ico'
+    }
+
+    if (!params.excludeChunks) {
+      // 未手动指定排除代码块
+      params.excludeChunks = Array.from(pagesConf.keys()).filter(c => {
+        return c !== name
+      }) // 
+    }
+
+    if (!(params.filename && params.template)) {
+      // 未手动指定 html 文件路径
+      params.filename = `${buildConf.htmlDir}${name}.html`
+      params.template = `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`
     }
 
     pagesConf.set(name, params)
@@ -93,7 +65,10 @@ function addMulPg({
    * @param {Object} conf webpack 配置文件拷贝
    * @param {String} name 入口文件名
    */
-  function setEntry ({ conf, name }) {
+  function setEntry({
+    conf,
+    name
+  }) {
     if (typeof conf.entry === 'object' || typeof conf.entry === 'undefined') {
       // 设置入口
       conf.entry = {
