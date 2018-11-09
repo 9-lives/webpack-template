@@ -1,3 +1,6 @@
+/**
+ * eslint 配置
+ */
 module.exports = {
   env: {
     browser: true,

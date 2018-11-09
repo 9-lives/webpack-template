@@ -1,8 +1,13 @@
-const webpack = require('webpack')
+const wpk = require('webpack')
 
+const buildConf = require('./build.conf')
+
+/**
+ * webpack 开发模式配置
+ */
 module.exports = {
   devServer: {
-    contentBase: '/dist',
+    contentBase: buildConf.optPath,
     compress: true,
     historyApiFallback: true,
     hot: true,
@@ -14,6 +19,6 @@ module.exports = {
     rules: []
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new wpk.HotModuleReplacementPlugin(),
   ],
 }

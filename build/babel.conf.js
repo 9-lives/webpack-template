@@ -1,3 +1,6 @@
+/**
+ * babel 配置
+ */
 module.exports = api => {
   const plugins = []
   const presets = [

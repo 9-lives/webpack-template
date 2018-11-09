@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "A webpack project",
   "scripts": {
-    "dev": "webpack-dev-server --config ./build/webpack.build.conf.js --env development",
-    "build": "webpack --config ./build/webpack.build.conf.js --env production",
+    "dev": "webpack-dev-server --config ./build/wpk.build.conf.js --env development",
+    "build": "webpack --config ./build/wpk.build.conf.js --env production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "@9-lives",
@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "normalize.css": "^8.0.0"
   }
 }
