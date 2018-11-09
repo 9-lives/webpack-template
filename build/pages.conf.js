@@ -1,9 +1,6 @@
 /**
  * 页面注入配置
  */
-module.exports = [
-  {
-    favicon: 'favicon.ico',
-    name: 'index', // filename、template、entry 同名
-  }
-]
+module.exports = new Map([
+  ['index']
+])

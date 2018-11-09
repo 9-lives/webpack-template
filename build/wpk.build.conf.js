@@ -19,7 +19,7 @@ module.exports = env => {
   let wpkBuildConf = merge({
     context: buildConf.context,
     entry: {
-      main: `./${buildConf.srcDir}js/main.js`,
+      'main': `./${buildConf.srcDir}js/main.js`,
     },
     module: {
       rules: [
@@ -119,13 +119,7 @@ module.exports = env => {
         'utils': path.join(__dirname, `../${buildConf.srcDir}js/utils`),
       },
     },
-    plugins: [
-      new htmlWpkPlugin({
-        favicon: 'favicon.ico',
-        filename: `${buildConf.htmlDir}index.html`,
-        template: `${buildConf.srcDir}${buildConf.htmlDir}index.html`,
-      }),
-    ],
+    plugins: [],
   }, wpkConf[isProd ? 'prod' : 'dev'])
 
   wpkBuildConf = utils.addMulPg({

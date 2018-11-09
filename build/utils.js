@@ -1,4 +1,4 @@
-const htmlWebpackPlugin = require('html-webpack-plugin')
+const htmlWpkPlugin = require('html-webpack-plugin')
 
 const buildConf = require('./build.conf')
 const pagesConf = require('./pages.conf')
@@ -12,44 +12,96 @@ function addMulPg({
 }) {
   let conf = { ...wpkConf }
 
-  if (!(pagesConf instanceof Array || conf.plugins instanceof Array)) {
+  if (!(conf.plugins instanceof Array)) {
     throw new Error(`failed to add multiple pages`)
   }
 
-  let pgsChunks = [] // 所有页面各自的入口 chunk
-  let htmlWpkPlgParams = new Map() // 所有页面各自的 html-webpack-plugin 插件配置
+  for (let name of pagesConf.keys()) {
+    initParams(name)
+    setEntry({
+      conf,
+      name,
+    })
+    excludeChunks({
+      conf,
+      name,
+    })
+    pagesConf.set(name, {
+      ...pagesConf.get(name),
+      filename: `${buildConf.htmlDir}${name}.html`,
+      template: `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`,
+    })
 
-  for (let o of pagesConf) {
-    let {
-      favicon = 'favicon.ico',
-        name,
-    } = o
+    conf.plugins.push(new htmlWpkPlugin(params))
+  }
 
-    if (typeof conf.entry === 'object' || !conf.entry) {
+  // for (let name of pagesConf.keys()) {
+  //   let params = pagesConf.get(name)
+
+  //   if (!params.excludeChunks) {
+  //     // 未手动指定排除代码块
+  //     params.excludeChunks = Array.from(pagesConf.keys()).filter(c => {
+  //       return c !== name
+  //     }) // 
+  //   }
+
+  //   conf.plugins.push(new htmlWpkPlugin(params))
+  // }
+  return conf
+
+  /**
+   * 排除其他页面各自的 chunk
+   * @param {Object} conf webpack 配置文件拷贝
+   * @param {Object} name 入口文件名
+   */
+  function excludeChunks ({ conf, name }) {
+    for (let name of pagesConf.keys()) {
+      let params = pagesConf.get(name)
+
+      if (!params.excludeChunks) {
+        // 未手动指定排除代码块
+        params.excludeChunks = Array.from(pagesConf.keys()).filter(c => {
+          return c !== name
+        }) // 
+      }
+
+      conf.plugins.push(new htmlWpkPlugin(params))
+    }
+  }
+
+  /**
+   * 初始化参数
+   * @param {Object} name 入口文件名
+   * @return {Object} html-webpack-plugin 参数
+   */
+  function initParams (name) {
+    let params = pagesConf.get(name)
+
+    if (typeof params === 'undefined') {
+      params = {}
+    }
+
+    if (typeof params.favicon === 'undefined') {
+      params.favicon = 'favicon.ico'
+    }
+
+    pagesConf.set(name, params)
+  }
+
+  /**
+   * 设置入口点
+   * @param {Object} conf webpack 配置文件拷贝
+   * @param {String} name 入口文件名
+   */
+  function setEntry ({ conf, name }) {
+    if (typeof conf.entry === 'object' || typeof conf.entry === 'undefined') {
       // 设置入口
       conf.entry = {
         ...conf.entry,
         [name]: `./${buildConf.srcDir}js/pages/${name}.js`,
       }
     }
-
-    pgsChunks.push(name)
-    htmlWpkPlgParams.set(name, {
-      favicon,
-      excludeChunks: [name],
-      filename: `${buildConf.htmlDir}${name}.html`,
-      template: `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`,
-    })
   }
-
-  for (let [name, o] of htmlWpkPlgParams.entries()) {
-    o.excludeChunks = pgsChunks.filter(c => {
-      return c !== name
-    }) // 排除其他页面各自的 chunk
-    conf.plugins.push(new htmlWebpackPlugin(o))
-  }
-
-  return conf
 }
 
 /**
