@@ -9,6 +9,7 @@ module.exports = {
   cssDir: 'css/', // css 目录
   htmlDir: 'html/', // HTML 目录
   imgsSubDir: 'imgs/', // 静态资源目录-图片资源子目录
+  maxSzToBase64: 3072, // 低于此大小的图片可能被转换为 base64 编码
   optPath: 'dist/', // 文件输出路径
   srcDir: 'src/', // 源码目录
 }

@@ -1,5 +1,6 @@
 const cleanWpkPlugin = require('clean-webpack-plugin')
 const miniCssExtPlugin = require('mini-css-extract-plugin')
+const optimizeCssAssetsWpkPlugin = require('optimize-css-assets-webpack-plugin')
 
 const buildConf = require('./build.conf')
 
@@ -11,6 +12,11 @@ module.exports = {
   mode: 'production',
   module: {
     rules: []
+  },
+  optimization: {
+    minimizer: [
+      new optimizeCssAssetsWpkPlugin()
+    ]
   },
   plugins: [
     new cleanWpkPlugin([buildConf.optPath], {

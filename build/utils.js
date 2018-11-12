@@ -1,3 +1,7 @@
+/**
+ * 编译配置文件工具包
+ */
+
 const htmlWpkPlugin = require('html-webpack-plugin')
 
 const buildConf = require('./build.conf')

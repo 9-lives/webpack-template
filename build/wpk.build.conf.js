@@ -88,6 +88,7 @@ module.exports = env => {
             {
               loader: 'url-loader',
               options: {
+                limit: buildConf.maxSzToBase64,
                 name: file => {
                   const imgsDir = `${buildConf.assetsDir}${buildConf.imgsSubDir}` // 图片资源目录。例 assets/imgs/
                   const imgDir = `${utils.pathSepToPosix(`${path.dirname(file)}/`)}` // 图片所在路径。例 D:/webpackSample/src/assets/imgs/icons/
@@ -95,7 +96,6 @@ module.exports = env => {
 
                   return `${isProd ? `${imgsDir}${relPath}` : '[path]'}[hash].[ext]`
                 },
-                limit: 4096,
                 publicPath: '/',
               }
             },
@@ -110,13 +110,14 @@ module.exports = env => {
     },
     resolve: {
       alias: {
-        'api': path.join(__dirname, `../${buildConf.srcDir}js/api`),
-        'assets': path.join(__dirname, `../${buildConf.srcDir}${buildConf.assetsDir}`),
-        'constants': path.join(__dirname, `../${buildConf.srcDir}js/constants`),
-        'css': path.join(__dirname, `../${buildConf.srcDir}${buildConf.cssDir}`),
-        'html': path.join(__dirname, `../${buildConf.srcDir}${buildConf.htmlDir}`),
-        'js': path.join(__dirname, `../${buildConf.srcDir}js`),
-        'utils': path.join(__dirname, `../${buildConf.srcDir}js/utils`),
+        'api': `${buildConf.context}${buildConf.srcDir}js/api/`,
+        'assets': `${buildConf.context}${buildConf.srcDir}${buildConf.assetsDir}`,
+        'config': `${buildConf.context}config/`,
+        'constants': `${buildConf.context}${buildConf.srcDir}js/constants/`,
+        'css': `${buildConf.context}${buildConf.srcDir}${buildConf.cssDir}`,
+        'html': `${buildConf.context}${buildConf.srcDir}${buildConf.htmlDir}`,
+        'js': `${buildConf.context}${buildConf.srcDir}js/`,
+        'utils': `${buildConf.context}${buildConf.srcDir}js/utils/`,
       },
     },
     plugins: [],
