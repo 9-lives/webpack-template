@@ -1,4 +1,3 @@
-const htmlWpkPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
 const miniCssExtPlugin = require('mini-css-extract-plugin')
 const path = require('path')
