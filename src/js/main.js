@@ -3,10 +3,12 @@
  */
 // UI 资源
 export * from 'css'
+// 配置文件
+import {
+  projectConf
+} from 'config/project.conf'
 // 工具方法
 import { utils } from 'utils'
-
-import { mock } from 'api/mock'
 
 /**
  * 全局错误监听
@@ -18,6 +20,17 @@ function addGlobalErrListener () {
 }
 
 utils.event.domContentLoaded(() => {
-  mock()
+  if (process.env.NODE_ENV === 'development' && projectConf.isMock) {
+    import('api/mock')
+      .then(rs => {
+        rs.mock()
+      })
+      .catch(e => {
+        if (e && e.message) {
+          utils.log.e(e.message)
+        }
+      })
+  }
+
   addGlobalErrListener()
 })
