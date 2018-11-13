@@ -16,7 +16,7 @@ module.exports = env => {
   const isProd = env === 'production'
 
   let wpkBuildConf = merge({
-    context: buildConf.context,
+    context: buildConf.ctx,
     entry: {
       'main': `./${buildConf.srcDir}js/main.js`,
     },
@@ -105,18 +105,18 @@ module.exports = env => {
     output: {
       chunkFilename: 'js/[name].[chunkhash].chunk.js',
       filename: 'js/[name].[hash].js',
-      path: `${buildConf.context}${buildConf.optPath}`,
+      path: `${buildConf.ctx}${buildConf.optPath}`,
     },
     resolve: {
       alias: {
-        'api': `${buildConf.context}${buildConf.srcDir}js/api/`,
-        'assets': `${buildConf.context}${buildConf.srcDir}${buildConf.assetsDir}`,
-        'config': `${buildConf.context}config/`,
-        'constants': `${buildConf.context}${buildConf.srcDir}js/constants/`,
-        'css': `${buildConf.context}${buildConf.srcDir}${buildConf.cssDir}`,
-        'html': `${buildConf.context}${buildConf.srcDir}${buildConf.htmlDir}`,
-        'js': `${buildConf.context}${buildConf.srcDir}js/`,
-        'utils': `${buildConf.context}${buildConf.srcDir}js/utils/`,
+        'api': `${buildConf.ctx}${buildConf.srcDir}js/api/`,
+        'assets': `${buildConf.ctx}${buildConf.srcDir}${buildConf.assetsDir}`,
+        'config': `${buildConf.ctx}config/`,
+        'constants': `${buildConf.ctx}${buildConf.srcDir}js/constants/`,
+        'css': `${buildConf.ctx}${buildConf.srcDir}${buildConf.cssDir}`,
+        'html': `${buildConf.ctx}${buildConf.srcDir}${buildConf.htmlDir}`,
+        'js': `${buildConf.ctx}${buildConf.srcDir}js/`,
+        'utils': `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
       },
     },
     plugins: [],

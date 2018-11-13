@@ -16,11 +16,11 @@ module.exports = {
   optimization: {
     minimizer: [
       new optimizeCssAssetsWpkPlugin()
-    ]
+    ],
   },
   plugins: [
     new cleanWpkPlugin([buildConf.optPath], {
-      root: buildConf.context
+      root: buildConf.ctx
     }),
     new miniCssExtPlugin({
       filename: `${buildConf.cssDir}[name].[hash].css`,

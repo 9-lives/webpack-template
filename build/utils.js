@@ -20,13 +20,13 @@ function addMulPg({
     throw new Error(`failed to add multiple pages`)
   }
 
-  for (let name of pagesConf.keys()) {
+  for (let name of Object.keys(pagesConf)) {
     initParams(name)
     setEntry({
       conf,
       name,
     })
-    conf.plugins.push(new htmlWpkPlugin(pagesConf.get(name)))
+    conf.plugins.push(new htmlWpkPlugin(pagesConf[name]))
   }
 
   return conf
@@ -37,7 +37,7 @@ function addMulPg({
    * @return {Object} html-webpack-plugin 参数
    */
   function initParams(name) {
-    let params = pagesConf.get(name)
+    let params = pagesConf[name]
 
     if (!params) {
       params = {}
@@ -50,9 +50,9 @@ function addMulPg({
 
     if (!params.excludeChunks) {
       // 未手动指定排除代码块
-      params.excludeChunks = Array.from(pagesConf.keys()).filter(c => {
+      params.excludeChunks = Array.from(Object.keys(pagesConf)).filter(c => {
         return c !== name
-      }) // 
+      })
     }
 
     if (!(params.filename && params.template)) {
@@ -60,8 +60,6 @@ function addMulPg({
       params.filename = `${buildConf.htmlDir}${name}.html`
       params.template = `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`
     }
-
-    pagesConf.set(name, params)
   }
 
   /**

@@ -1,22 +1,27 @@
-// 库
-import Mock from 'mockjs'
 // 配置文件
 import {
   projectConf
 } from 'config/project.conf'
+// 工具方法
+import { utils } from 'utils'
 
-import {
-  mockData
-} from './data'
-
-if (process.env.NODE_ENV === 'development' && projectConf.isMock) {
-  // 必须在开发环境(否则多入口点，可能出现 Mock 未加载完毕，发 ajax 请求的情况)，且打开 Mock 开关
-  Promise.all([import('mockjs')])
-    .then(ret => {
-      let mock = ret[0].default
+/**
+ * 启动模拟 API
+ */
+export async function mock() {
+  if (process.env.NODE_ENV === 'development' && projectConf.isMock) {
+    try {
+      let ret = await Promise.all([import('mockjs'), import('./data')])
+      let Mock = ret[0]
+      let mockData = ret[1].mockData
 
       for (let [url, params] of Object.entries(mockData)) {
-        mock.mock(url, params)
+        Mock.mock(url, params)
       }
-    })
+    } catch (e) {
+      if (e && e.message) {
+        utils.log.e(e.message)
+      }
+    }
+  }
 }

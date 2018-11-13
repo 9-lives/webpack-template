@@ -5,7 +5,7 @@ const path = require('path')
  */
 module.exports = {
   assetsDir: 'assets/', // 静态资源目录
-  context: `${path.join(__dirname, '..')}/`, // 编译配置文件上下文。使配置文件独立于工程根目录
+  ctx: `${path.join(__dirname, '..')}/`, // 编译配置文件上下文。使配置文件独立于工程根目录
   cssDir: 'css/', // css 目录
   htmlDir: 'html/', // HTML 目录
   imgsSubDir: 'imgs/', // 静态资源目录-图片资源子目录

@@ -6,6 +6,8 @@ export * from 'css'
 // 工具方法
 import { utils } from 'utils'
 
+import { mock } from 'api/mock'
+
 /**
  * 全局错误监听
  */
@@ -15,6 +17,7 @@ function addGlobalErrListener () {
   })
 }
 
-utils.event.domContentLoaded(async () => {
+utils.event.domContentLoaded(() => {
+  mock()
   addGlobalErrListener()
 })
