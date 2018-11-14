@@ -48,8 +48,8 @@ function addMulPg({
       params.favicon = 'favicon.ico'
     }
 
-    if (!params.excludeChunks) {
-      // 未手动指定排除代码块
+    if (!(params.excludeChunks || params.chunks instanceof Array)) {
+      // 未手动指定(排除 || 包含)代码块
       params.excludeChunks = Array.from(Object.keys(pagesConf)).filter(c => {
         return c !== name
       })

@@ -22,8 +22,8 @@ function addGlobalErrListener () {
 utils.event.domContentLoaded(() => {
   if (process.env.NODE_ENV === 'development' && projectConf.isMock) {
     import('api/mock')
-      .then(rs => {
-        rs.mock()
+      .then(({ mock }) => {
+        mock()
       })
       .catch(e => {
         if (e && e.message) {

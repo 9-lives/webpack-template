@@ -95,7 +95,6 @@ module.exports = env => {
 
                   return `${isProd ? `${imgsDir}${relPath}` : '[path]'}[hash].[ext]`
                 },
-                publicPath: '/',
               }
             },
           ]
@@ -106,6 +105,7 @@ module.exports = env => {
       chunkFilename: 'js/[name].[chunkhash].chunk.js',
       filename: 'js/[name].[hash].js',
       path: `${buildConf.ctx}${buildConf.optPath}`,
+      publicPath: '/',
     },
     resolve: {
       alias: {
