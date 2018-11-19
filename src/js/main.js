@@ -2,7 +2,7 @@
  * app 公共入口点
  */
 // UI 资源
-export * from 'css'
+export * from 'styles'
 // 配置文件
 import {
   projectConf

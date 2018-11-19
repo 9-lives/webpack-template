@@ -67,7 +67,7 @@ module.exports = env => {
             {
               loader: 'sass-resources-loader',
               options: {
-                resources: [`${buildConf.srcDir}${buildConf.cssDir}global/var.scss`],
+                resources: [`${buildConf.srcDir}${buildConf.stylesDir}global/var.scss`],
               },
             }
           ]
@@ -113,9 +113,9 @@ module.exports = env => {
         'assets': `${buildConf.ctx}${buildConf.srcDir}${buildConf.assetsDir}`,
         'config': `${buildConf.ctx}config/`,
         'constants': `${buildConf.ctx}${buildConf.srcDir}js/constants/`,
-        'css': `${buildConf.ctx}${buildConf.srcDir}${buildConf.cssDir}`,
         'html': `${buildConf.ctx}${buildConf.srcDir}${buildConf.htmlDir}`,
         'js': `${buildConf.ctx}${buildConf.srcDir}js/`,
+        'styles': `${buildConf.ctx}${buildConf.srcDir}${buildConf.stylesDir}`,
         'utils': `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
       },
     },

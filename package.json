@@ -12,7 +12,7 @@
   "browserslist": [
     "last 3 version",
     "> 1%",
-    "not ie < 9",
+    "not ie < 10",
     "not ios < 9",
     "not dead"
   ],
@@ -23,6 +23,7 @@
     "autoprefixer": "^9.3.1",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
     "eslint": "^5.9.0",
     "eslint-loader": "^2.1.1",

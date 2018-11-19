@@ -1,5 +1,5 @@
 // 页面样式
-export * from 'css/pages/index.scss'
+export * from 'styles/pages/index.scss'
 
 // 工具方法
 import { utils } from 'utils'

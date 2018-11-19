@@ -1,4 +1,5 @@
 const cleanWpkPlugin = require('clean-webpack-plugin')
+const copyWpkPlugin = require('copy-webpack-plugin')
 const miniCssExtPlugin = require('mini-css-extract-plugin')
 const optimizeCssAssetsWpkPlugin = require('optimize-css-assets-webpack-plugin')
 const terserWpkPlugin = require('terser-webpack-plugin')
@@ -44,9 +45,14 @@ module.exports = {
     new cleanWpkPlugin([buildConf.optPath], {
       root: buildConf.ctx
     }),
+    new copyWpkPlugin([
+      {
+        from: 'public',
+      }
+    ]),
     new miniCssExtPlugin({
-      filename: `${buildConf.cssDir}[name].[hash].css`,
-      chunkFilename: `${buildConf.cssDir}[name].[chunkhash].chunk.css`
+      filename: `css/[name].[hash].css`,
+      chunkFilename: `css/[name].[chunkhash].chunk.css`
     }),
   ],
 }
