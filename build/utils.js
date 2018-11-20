@@ -43,7 +43,7 @@ function addMulPg({
       excludeChunks,
       // bug: favicon.ico 位置输出错误，可以使用 faviconsWebpackPlugin 解决，但是目前不支持 html-webpack-plugin 4.0.0 beta
       favicon = 'favicon.ico',
-      filename = `${buildConf.htmlDir}${name}.html`,
+      filename = `html/${name}.html`,
       template = `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`,
     } = typeof pagesConf[name] === 'object' ? pagesConf[name] : {}
 
