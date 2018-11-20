@@ -21,7 +21,7 @@ function addMulPg({
   }
 
   for (let name of Object.keys(pagesConf)) {
-    initParams(name)
+    pagesConf[name] = initParams(name)
     setEntry({
       conf,
       name,
@@ -37,28 +37,30 @@ function addMulPg({
    * @return {Object} html-webpack-plugin 参数
    */
   function initParams(name) {
-    let params = pagesConf[name]
-
-    if (!params) {
-      params = {}
-    }
-
-    if (!params.favicon) {
+    let {
+      chunks,
+      compress = true,
+      excludeChunks,
       // bug: favicon.ico 位置输出错误，可以使用 faviconsWebpackPlugin 解决，但是目前不支持 html-webpack-plugin 4.0.0 beta
-      params.favicon = 'favicon.ico'
-    }
+      favicon = 'favicon.ico',
+      filename = `${buildConf.htmlDir}${name}.html`,
+      template = `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`,
+    } = typeof pagesConf[name] === 'object' ? pagesConf[name] : {}
 
-    if (!(params.excludeChunks || params.chunks instanceof Array)) {
-      // 未手动指定(排除 || 包含)代码块
-      params.excludeChunks = Array.from(Object.keys(pagesConf)).filter(c => {
+    if (!(excludeChunks || chunks instanceof Array)) {
+      // 未手动指定(排除/包含)代码块
+      excludeChunks = Array.from(Object.keys(pagesConf)).filter(c => {
         return c !== name
       })
     }
 
-    if (!(params.filename && params.template)) {
-      // 未手动指定 html 文件路径
-      params.filename = `${buildConf.htmlDir}${name}.html`
-      params.template = `${buildConf.srcDir}${buildConf.htmlDir}${name}.html`
+    return {
+      chunks,
+      compress,
+      excludeChunks,
+      favicon,
+      filename,
+      template,
     }
   }
 
