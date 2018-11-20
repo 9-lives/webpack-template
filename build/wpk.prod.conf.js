@@ -16,7 +16,6 @@ module.exports = {
     // webpackv4，重载生产模式默认设置 minimize: true
     minimizer: [
       new optimizeCssAssetsWpkPlugin(),
-      // webpackv5 可能默认使用 terser
       new terserWpkPlugin({
         cache: true,
         parallel: true,
@@ -43,11 +42,11 @@ module.exports = {
   },
   plugins: [
     new cleanWpkPlugin([buildConf.optPath], {
-      root: buildConf.ctx
+      root: buildConf.ctx,
     }),
     new copyWpkPlugin([
       {
-        from: 'public',
+        from: buildConf.publicDir,
       }
     ]),
     new miniCssExtPlugin({
