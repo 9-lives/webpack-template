@@ -13,6 +13,8 @@ const service = axios.create({
 service.interceptors.response.use(rs => {
   // 正常响应拦截器
   return rs
+}, err => {
+  return Promise.reject(err)
 })
 
 async function get({
