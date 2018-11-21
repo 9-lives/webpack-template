@@ -12,9 +12,9 @@ export async function example0Api (options = {}) {
     data1,
   } = options
 
-  let ret = await utils.network.ajax.get({
+  let ret = await utils.network.ajax.post({
     url: 'example/0',
-    params: {
+    data: {
       data0,
       data1,
     }
