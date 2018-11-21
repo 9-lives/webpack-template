@@ -13,7 +13,6 @@ module.exports = {
   devtool: 'source-map',
   mode: 'production',
   optimization: {
-    // webpackv4，重载生产模式默认设置 minimize: true
     minimizer: [
       new optimizeCssAssetsWpkPlugin(),
       new terserWpkPlugin({
@@ -31,12 +30,18 @@ module.exports = {
     },
     splitChunks: {
       cacheGroups: {
+        common: {
+          chunks: 'initial',
+          minChunks: 3,
+          name: 'common',
+          priority: -15,
+        },
         vendors: {
-          chunks: 'all',
+          chunks: 'initial',
           name: 'vendors',
           priority: -10,
           test: /[\\/]node_modules[\\/]/,
-        }
+        },
       },
     }
   },

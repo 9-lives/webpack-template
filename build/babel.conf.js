@@ -2,7 +2,9 @@
  * babel 配置
  */
 module.exports = api => {
-  const plugins = []
+  const plugins = [
+    '@babel/plugin-syntax-dynamic-import',
+  ]
   const presets = [
     [
       '@babel/preset-env',

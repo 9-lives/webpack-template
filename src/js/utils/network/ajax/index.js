@@ -4,7 +4,7 @@ import qs from 'qs'
 // 配置文件
 import { projectConf } from 'config/project.conf'
 
-import { log } from 'utils/log'
+import { mock } from 'api/mock'
 
 const service = axios.create({
   timeout: projectConf.ajaxTimeout,
@@ -29,23 +29,6 @@ async function get({
     method: 'get',
     params: data,
   })
-}
-
-let mockModule
-/**
- * 启用模拟数据
- */
-async function mock () {
-  if (process.env.NODE_ENV === 'development' && projectConf.isMock && !mockModule) {
-    try {
-      mockModule = await import('api/mock')
-      mockModule.mock()
-    } catch (e) {
-      if (e && e.message) {
-        log.e(e.message)
-      }
-    }
-  }
 }
 
 async function post({

@@ -23,7 +23,20 @@ module.exports = env => {
     module: {
       rules: [
         {
-          include: /src\/js/,
+          enforce: 'pre',
+          exclude: /node_modules/,
+          test: /\.js$/,
+          use: [
+            {
+              loader: 'eslint-loader',
+              options: {
+                configFile: 'build/.eslintrc.js'
+              }
+            }
+          ]
+        },
+        {
+          exclude: /node_modules/,
           test: /\.js$/,
           use: [
             {
@@ -33,12 +46,6 @@ module.exports = env => {
                 configFile: './build/babel.conf.js'
               }
             },
-            {
-              loader: 'eslint-loader',
-              options: {
-                configFile: 'build/.eslintrc.js'
-              }
-            }
           ]
         },
         {
@@ -109,14 +116,14 @@ module.exports = env => {
     },
     resolve: {
       alias: {
-        'api': `${buildConf.ctx}${buildConf.srcDir}js/api/`,
-        'assets': `${buildConf.ctx}${buildConf.srcDir}${buildConf.assetsDir}`,
-        'config': `${buildConf.ctx}config/`,
-        'constants': `${buildConf.ctx}${buildConf.srcDir}js/constants/`,
-        'html': `${buildConf.ctx}${buildConf.srcDir}${buildConf.htmlDir}`,
-        'js': `${buildConf.ctx}${buildConf.srcDir}js/`,
-        'styles': `${buildConf.ctx}${buildConf.srcDir}${buildConf.stylesDir}`,
-        'utils': `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
+        api: `${buildConf.ctx}${buildConf.srcDir}js/api/`,
+        assets: `${buildConf.ctx}${buildConf.srcDir}${buildConf.assetsDir}`,
+        config: `${buildConf.ctx}config/`,
+        constants: `${buildConf.ctx}${buildConf.srcDir}js/constants/`,
+        html: `${buildConf.ctx}${buildConf.srcDir}${buildConf.htmlDir}`,
+        js: `${buildConf.ctx}${buildConf.srcDir}js/`,
+        styles: `${buildConf.ctx}${buildConf.srcDir}${buildConf.stylesDir}`,
+        utils: `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
       },
     },
     plugins: [],
