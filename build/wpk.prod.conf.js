@@ -6,6 +6,8 @@ const terserWpkPlugin = require('terser-webpack-plugin')
 
 const buildConf = require('./build.conf')
 
+// const utils = require('./utils')
+
 /**
  * webpack 生产模式配置
  */
@@ -30,6 +32,7 @@ module.exports = {
     },
     splitChunks: {
       cacheGroups: {
+        // ...utils.injectPgs.css(),
         common: {
           chunks: 'initial',
           minChunks: 3,
@@ -55,8 +58,8 @@ module.exports = {
       }
     ]),
     new miniCssExtPlugin({
-      filename: `css/[name].[hash].css`,
-      chunkFilename: `css/[name].[chunkhash].chunk.css`
+      filename: `css/[name].[contenthash].css`,
+      chunkFilename: `css/[name].[contenthash].chunk.css`
     }),
   ],
 }

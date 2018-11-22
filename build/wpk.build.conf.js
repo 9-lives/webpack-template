@@ -1,7 +1,6 @@
 const merge = require('webpack-merge')
 const miniCssExtPlugin = require('mini-css-extract-plugin')
 const path = require('path')
-const utils = require('./utils')
 
 const buildConf = require('./build.conf')
 const wpkConf = {
@@ -9,16 +8,19 @@ const wpkConf = {
   prod: require('./wpk.prod.conf')
 }
 
+const utils = require('./utils')
+
 /**
  * webpack 配置
  */
 module.exports = env => {
   const isProd = env === 'production'
 
-  let wpkBuildConf = merge({
+  return merge({
     context: buildConf.ctx,
     entry: {
       'main': `./${buildConf.srcDir}js/main.js`,
+      ...utils.injectPgs.entries(),
     },
     module: {
       rules: [
@@ -126,12 +128,8 @@ module.exports = env => {
         utils: `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
       },
     },
-    plugins: [],
+    plugins: [
+      ...utils.injectPgs.htmlWpkPlugin(),
+    ],
   }, wpkConf[isProd ? 'prod' : 'dev'])
-
-  wpkBuildConf = utils.addMulPg({
-    wpkConf: wpkBuildConf,
-  })
-
-  return wpkBuildConf
 }
