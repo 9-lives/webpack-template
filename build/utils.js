@@ -27,11 +27,8 @@ const injectPgs = {
   htmlWpkPlugin() {
     let plugins = []
 
-    for (let [name, conf] of Object.entries(pagesConf)) {
-      plugins.push(new htmlWpkPlugin(getParams({
-        conf,
-        name,
-      })))
+    for (let i of Object.entries(pagesConf)) {
+      plugins.push(new htmlWpkPlugin(getParams(i)))
     }
 
     return plugins
@@ -42,7 +39,7 @@ const injectPgs = {
      * @param {String} name 入口文件名
      * @return {Object} html-webpack-plugin 参数
      */
-    function getParams({ conf = {}, name }) {
+    function getParams([ name, conf = {} ]) {
       let {
         chunks,
         compress = true,

@@ -26,5 +26,11 @@ module.exports = {
         ],
       },
     ],
+    'no-unused-vars': [
+      'error',
+      {
+        args: 'none',
+      },
+    ],
   },
 }
