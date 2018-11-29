@@ -82,6 +82,7 @@ module.exports = env => {
                   `${buildConf.srcDir}${buildConf.stylesDir}global/funs.scss`,
                   `${buildConf.srcDir}${buildConf.stylesDir}global/mixins.scss`,
                 ],
+                sourceMap: true,
               },
             }
           ]
