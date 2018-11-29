@@ -1,0 +1,6 @@
+/* 全局方法 */
+
+/* px 值根据设计稿宽度转换对应 vw 值 */
+@function _px2Vw ($px) {
+  @return $designWt / $px + vw;
+}

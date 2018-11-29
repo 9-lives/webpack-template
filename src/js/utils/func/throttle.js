@@ -1,5 +1,5 @@
 /**
- * 节流
+ * 节流。兼容到 IE 10
  * @param {Function} callback 回调方法
  * @return {Function} 去抖后的回调方法
  */
