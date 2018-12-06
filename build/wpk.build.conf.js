@@ -77,8 +77,8 @@ module.exports = env => {
               loader: 'sass-resources-loader',
               options: {
                 resources: [
-                  `${buildConf.srcDir}${buildConf.stylesDir}global/var.scss`,
                   `${buildConf.srcDir}${buildConf.stylesDir}global/color.scss`,
+                  `${buildConf.srcDir}${buildConf.stylesDir}global/var.scss`,
                   `${buildConf.srcDir}${buildConf.stylesDir}global/funs.scss`,
                   `${buildConf.srcDir}${buildConf.stylesDir}global/mixins.scss`,
                 ],
