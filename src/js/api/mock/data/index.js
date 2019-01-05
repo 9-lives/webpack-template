@@ -1,5 +1,8 @@
-import { example } from './example'
+const ctx = require.context('./', true, /^\.\/(?!index)\S+.js$/)
+const obj = {}
 
-export const mockData = {
-  ...example,
+for (let i of ctx.keys()) {
+  Object.assign(obj, ctx(i).default)
 }
+
+export default new Map(Object.entries(obj))

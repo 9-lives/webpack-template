@@ -10,7 +10,7 @@ export function debounce ({ callback = () => {}, threshold = 500 } = {}) {
   return function (...args) {
     clearTimeout(timer)
     timer = setTimeout(() => {
-      callback.apply(this, args)
+      Reflect.apply(callback, this, args)
     }, threshold)
   }
 }

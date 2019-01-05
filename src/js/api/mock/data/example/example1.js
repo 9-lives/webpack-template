@@ -1,9 +1,9 @@
 export default {
-  'example/0': {
+  'example/1': {
     data: {
       name: '@9-lives',
     },
-    method: 'get',
+    method: 'post',
     status: 200,
-  },
+  }
 }

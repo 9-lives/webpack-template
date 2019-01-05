@@ -1,5 +1,13 @@
 import { regExp } from 'constants/regExp'
 
-export const constants = {
+import { utils } from 'utils'
+
+const constants = {
   regExp,
+}
+
+utils.object.deepFreeze(constants)
+
+export {
+  constants,
 }

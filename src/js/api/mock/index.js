@@ -1,20 +1,34 @@
 // 配置文件
-import { projectConf } from 'config/project.conf'
+import {
+  projectConf
+} from 'config/project.conf'
 
-import { utils } from 'utils'
+import {
+  utils
+} from 'utils'
 
 /**
- * 启动模拟 API
+ * 启动 API mock
+ * @param {String} url 请求 URL
  */
-export async function mock() {
+export async function mock({
+  url,
+}) {
   if (process.env.NODE_ENV === 'development' && projectConf.isMock) {
     try {
-      const modules = await Promise.all([import(/* webpackChunkName: "mockjs" */ 'mockjs'), import(/* webpackChunkName: "mockData" */ './data')])
-      const Mock =  modules[0].default
-      const { mockData } = modules[1]
+      const modules = await Promise.all([import( /* webpackChunkName: "axiosMockAdapter" */ 'axios-mock-adapter'), import( /* webpackChunkName: "mockData" */ './data')])
+      const mockAdapter = new (modules[0].default)(utils.network.ajax.axiosInstance)
+      const mockConf = modules[1].default.get(url)
+      const {
+        data = {},
+        method = 'post',
+        status = '200'
+      } = mockConf ? mockConf : {}
 
-      for (let [url, params] of Object.entries(mockData)) {
-        Mock.mock(url, params)
+      if (method === 'get') {
+        mockAdapter.onGet(url).reply(status, data)
+      } else {
+        mockAdapter.onPost(url).reply(status, data)
       }
     } catch (e) {
       if (e && e.message) {

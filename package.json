@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config ./build/wpk.build.conf.js --env development",
     "build": "webpack --config ./build/wpk.build.conf.js --env production",
-    "test:unit": "karma start test/unit/karma.unit.config.js"
+    "test:unit": "mocha-webpack --webpack-config ./build/wpk.test.conf.js --recursive tests/unit/**/*.spec.js"
   },
   "author": "@9-lives",
   "license": "ISC",
@@ -22,8 +22,10 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "autoprefixer": "^9.4.3",
+    "axios-mock-adapter": "^1.16.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
+    "chai": "^4.2.0",
     "clean-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^2.0.2",
@@ -34,7 +36,7 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.5.0",
     "mocha": "^5.2.0",
-    "mocha-webpack": "^1.1.0",
+    "mocha-webpack": "^2.0.0-beta.0",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
@@ -44,7 +46,7 @@
     "svg-sprite-loader": "^4.1.3",
     "terser-webpack-plugin": "^1.2.0",
     "url-loader": "^1.1.2",
-    "webpack": "^4.28.2",
+    "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.5"
@@ -52,7 +54,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "axios": "^0.18.0",
-    "mockjs": "^1.0.1-beta3",
     "normalize.css": "^8.0.1",
     "qs": "^6.6.0"
   }

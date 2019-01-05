@@ -9,7 +9,7 @@ export function throttle ({ callback }) {
   return function (...args) {
     if (!isRunning) {
       window.requestAnimationFrame(timestamp => {
-        callback.apply(this, args)
+        Reflect.apply(callback, this, args)
         isRunning = false
       })
     }
