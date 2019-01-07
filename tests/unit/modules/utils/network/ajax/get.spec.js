@@ -5,7 +5,7 @@ import {
   get,
 } from 'utils/network/ajax/get'
 
-describe('utils/network/ajax/get test suite', () => {
+describe('utils/network/ajax/get', () => {
   it('expect for a function', () => {
     expect(get).to.be.a('function')
   })

@@ -5,7 +5,7 @@ import {
   debounce
 } from 'utils/func/debounce'
 
-describe('utils/func/debounce test suite', () => {
+describe('utils/func/debounce', () => {
   it('expect for a function', () => {
     expect(debounce).to.be.a('function')
   })

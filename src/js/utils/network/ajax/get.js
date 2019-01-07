@@ -3,7 +3,7 @@ import {
 } from './axiosInstance'
 import {
   mock,
-} from 'api/mock'
+} from './/mock'
 
 /**
  * ajax get 方法
@@ -13,10 +13,7 @@ export async function get({
   headers,
   url,
 }) {
-  await mock({
-    axios: axiosInstance,
-    url,
-  })
+  await mock()
 
   return await axiosInstance(url, {
     headers,

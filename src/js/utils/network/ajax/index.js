@@ -1,7 +1,4 @@
 import {
-  axiosInstance,
-} from './axiosInstance'
-import {
   get,
 } from './get'
 import {
@@ -12,7 +9,6 @@ import {
  * ajax 方法
  */
 export default {
-  axiosInstance,
   get,
   post,
 }

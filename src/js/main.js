@@ -1,5 +1,5 @@
 // UI 资源
-export * from 'styles'
+import 'ui'
 // 工具方法
 import {
   utils

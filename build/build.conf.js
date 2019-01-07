@@ -12,5 +12,5 @@ module.exports = {
   optPath: 'dist/', // 文件输出路径
   publicDir: 'public/', // 静态资源复制目录
   srcDir: 'src/', // 源码目录
-  stylesDir: 'styles/', // styles 目录
+  uiDir: 'ui/', // ui 文件目录
 }

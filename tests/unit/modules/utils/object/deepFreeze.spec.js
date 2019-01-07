@@ -5,7 +5,7 @@ import {
   deepFreeze
 } from 'utils/object/deepFreeze'
 
-describe('utils/object/deepFreeze test suite', () => {
+describe('utils/object/deepFreeze', () => {
   const o = deepFreeze({
     a: 0,
     b: {

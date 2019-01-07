@@ -56,7 +56,7 @@ function setAlias(conf) {
     constants: `${buildConf.ctx}${buildConf.srcDir}js/constants/`,
     html: `${buildConf.ctx}${buildConf.srcDir}${buildConf.htmlDir}`,
     js: `${buildConf.ctx}${buildConf.srcDir}js/`,
-    styles: `${buildConf.ctx}${buildConf.srcDir}${buildConf.stylesDir}`,
+    ui: `${buildConf.ctx}${buildConf.srcDir}${buildConf.uiDir}`,
     utils: `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
   }
 }
@@ -75,6 +75,7 @@ function setLoaders(conf) {
   setBabelLoader(rules)
   setCssLoader(rules)
   setHtmlLoader(rules)
+  setSvgSpritesLoader(rules)
   setUrlLoader(rules)
 
   conf.module.rules = rules
@@ -120,10 +121,10 @@ function setLoaders(conf) {
           loader: 'sass-resources-loader',
           options: {
             resources: [
-              `${buildConf.srcDir}${buildConf.stylesDir}global/color.scss`,
-              `${buildConf.srcDir}${buildConf.stylesDir}global/var.scss`,
-              `${buildConf.srcDir}${buildConf.stylesDir}global/funs.scss`,
-              `${buildConf.srcDir}${buildConf.stylesDir}global/mixins.scss`,
+              `${buildConf.srcDir}${buildConf.uiDir}styles/global/color.scss`,
+              `${buildConf.srcDir}${buildConf.uiDir}styles/global/var.scss`,
+              `${buildConf.srcDir}${buildConf.uiDir}styles/global/funs.scss`,
+              `${buildConf.srcDir}${buildConf.uiDir}styles/global/mixins.scss`,
             ],
             sourceMap: true,
           },
@@ -151,6 +152,18 @@ function setLoaders(conf) {
       test: /\.html$/,
       use: [{
         loader: 'html-loader'
+      }]
+    })
+  }
+
+  function setSvgSpritesLoader() {
+    rules.push({
+      test: /\.svg$/,
+      use: [{
+        loader: 'svg-sprite-loader',
+        options: {
+          symbolId: 'ic-[name]',
+        },
       }]
     })
   }

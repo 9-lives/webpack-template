@@ -5,7 +5,7 @@ import {
   axiosInstance,
 } from 'utils/network/ajax/axiosInstance'
 
-describe('utils/network/ajax/axiosInstance test suite', () => {
+describe('utils/network/ajax/axiosInstance', () => {
   it('expect for a function', () => {
     expect(axiosInstance).to.be.a('function')
   })

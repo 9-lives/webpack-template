@@ -1,6 +1,6 @@
 {
   "name": "webpackProject",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A webpack project",
   "scripts": {
     "dev": "webpack-dev-server --config ./build/wpk.build.conf.js --env development",
