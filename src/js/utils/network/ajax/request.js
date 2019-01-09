@@ -5,11 +5,11 @@ import {
   projectConf,
 } from 'config/project.conf'
 
-const axiosInstance = axios.create({
+const request = axios.create({
   timeout: projectConf.ajaxTimeout,
 })
 
-axiosInstance.interceptors.response.use(rs => {
+request.interceptors.response.use(rs => {
   // 正常响应拦截器
   return rs
 }, err => {
@@ -20,5 +20,5 @@ axiosInstance.interceptors.response.use(rs => {
  * 全局 axios 实例
  */
 export {
-  axiosInstance
+  request
 }

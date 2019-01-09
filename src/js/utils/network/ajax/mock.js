@@ -7,8 +7,8 @@ import {
   log,
 } from 'utils/log'
 import {
-  axiosInstance,
-} from './axiosInstance'
+  request,
+} from './request'
 
 let mockAdapter
 
@@ -22,7 +22,7 @@ export async function mock() {
     try {
       const modules = await Promise.all([import( /* webpackChunkName: "AxiosMockAdapter" */ 'axios-mock-adapter'), import( /* webpackChunkName: "mockData" */ 'api/mock')])
 
-      mockAdapter = new(modules[0].default)(axiosInstance)
+      mockAdapter = new(modules[0].default)(request)
 
       for (let [url, {
           data = {},

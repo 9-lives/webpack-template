@@ -2,16 +2,16 @@ import {
   expect
 } from 'chai'
 import {
-  axiosInstance,
-} from 'utils/network/ajax/axiosInstance'
+  request,
+} from 'utils/network/ajax/request'
 
-describe('utils/network/ajax/axiosInstance', () => {
+describe('utils/network/ajax/request', () => {
   it('expect for a function', () => {
-    expect(axiosInstance).to.be.a('function')
+    expect(request).to.be.a('function')
   })
   // 失败
   it('expect to return a rejected promise', done => {
-    expect(axiosInstance({
+    expect(request({
       url: '',
     }).catch(e => {
       expect(e).to.be.an('error')
@@ -20,7 +20,7 @@ describe('utils/network/ajax/axiosInstance', () => {
   })
   // 成功
   it('expect to return a object which has data and status properties', done => {
-    axiosInstance({
+    request({
       url: '_success',
     }).then(d => {
       expect(d).to.be.a('object')

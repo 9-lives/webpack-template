@@ -1,14 +1,14 @@
 import mockData from 'api/mock'
 import {
-  axiosInstance,
-} from 'utils/network/ajax/axiosInstance'
+  request,
+} from 'utils/network/ajax/request'
 import AxiosMockAdapter from 'axios-mock-adapter'
 
 /**
  * 启动 API mock
  */
 export default function mock() {
-  let mockAdapter = new AxiosMockAdapter(axiosInstance)
+  let mockAdapter = new AxiosMockAdapter(request)
 
   for (let [url, {
       data = {},

@@ -1,6 +1,6 @@
 import {
-  axiosInstance,
-} from './axiosInstance'
+  request,
+} from './request'
 import {
   mock,
 } from './/mock'
@@ -15,7 +15,7 @@ export async function get({
 }) {
   await mock()
 
-  return await axiosInstance(url, {
+  return await request(url, {
     headers,
     method: 'get',
     params: data,

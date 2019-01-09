@@ -1,8 +1,8 @@
 import qs from 'qs'
 
 import {
-  axiosInstance,
-} from './axiosInstance'
+  request,
+} from './request'
 import {
   mock
 } from './mock'
@@ -19,7 +19,7 @@ export async function post({
 }) {
   await mock()
 
-  return await axiosInstance({
+  return await request({
     auth,
     data: qs.stringify(data),
     headers,
