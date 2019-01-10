@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "A webpack project",
   "scripts": {
+    "commit": "npx git-cz",
     "dev": "webpack-dev-server --config ./build/wpk.build.conf.js --env development",
     "build": "webpack --config ./build/wpk.build.conf.js --env production",
     "test:unit": "mocha-webpack --webpack-config ./build/wpk.test.conf.js --recursive tests/unit/**/*.spec.js"
@@ -27,8 +28,10 @@
     "babel-loader": "^8.0.4",
     "chai": "^4.2.0",
     "clean-webpack-plugin": "^1.0.0",
+    "commitizen": "^3.0.5",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^2.0.2",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.11.0",
     "eslint-loader": "^2.1.1",
     "file-loader": "^3.0.1",
@@ -56,5 +59,14 @@
     "axios": "^0.18.0",
     "normalize.css": "^8.0.1",
     "qs": "^6.6.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": "> 5.2.0"
   }
 }
