@@ -4,8 +4,8 @@
   "description": "A webpack project",
   "scripts": {
     "commit": "npx git-cz",
-    "dev": "webpack-dev-server --config ./build/wpk.build.conf.js --env development",
-    "build": "webpack --config ./build/wpk.build.conf.js --env production",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/wpk.dev.conf.js",
+    "build": "cross-env NODE_ENV=production webpack --config ./build/wpk.prod.conf.js",
     "test:unit": "karma start tests/unit/karma.conf.js"
   },
   "author": "@9-lives",
@@ -65,6 +65,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "axios": "^0.18.0",
+    "cross-env": "^5.2.0",
     "js-cookie": "^2.2.0",
     "normalize.css": "^8.0.1",
     "qs": "^6.6.0"

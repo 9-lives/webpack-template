@@ -1,9 +1,13 @@
 const buildConf = require('./build.conf')
+const merge = require('webpack-merge')
 const wpk = require('webpack')
+
+const baseConf = require('./wpk.base.conf')
+
 /**
  * webpack 开发模式配置
  */
-module.exports = {
+module.exports = merge(baseConf, {
   devServer: {
     contentBase: `${buildConf.ctx}${buildConf.publicDir}`,
     compress: true,
@@ -16,4 +20,4 @@ module.exports = {
   plugins: [
     new wpk.HotModuleReplacementPlugin(),
   ],
-}
+})

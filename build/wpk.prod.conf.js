@@ -1,17 +1,19 @@
 const cleanWpkPlugin = require('clean-webpack-plugin')
 const copyWpkPlugin = require('copy-webpack-plugin')
+const merge = require('webpack-merge')
 const miniCssExtPlugin = require('mini-css-extract-plugin')
 const optimizeCssAssetsWpkPlugin = require('optimize-css-assets-webpack-plugin')
 const terserWpkPlugin = require('terser-webpack-plugin')
 
 const buildConf = require('./build.conf')
+const baseConf = require('./wpk.base.conf')
 
 // const utils = require('./utils')
 
 /**
  * webpack 生产模式配置
  */
-module.exports = {
+module.exports = merge(baseConf, {
   devtool: 'source-map',
   mode: 'production',
   optimization: {
@@ -62,4 +64,4 @@ module.exports = {
       chunkFilename: `css/[name].[contenthash].chunk.css`
     }),
   ],
-}
+})

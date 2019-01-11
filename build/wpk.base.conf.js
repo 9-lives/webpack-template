@@ -1,55 +1,42 @@
-const merge = require('webpack-merge')
 const miniCssExtPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 const buildConf = require('./build.conf')
-const wpkConf = {
-  dev: require('./wpk.dev.conf'),
-  prod: require('./wpk.prod.conf')
-}
 
 const utils = require('./utils')
 
-let isProd
 
 /**
  * webpack 配置
  */
-module.exports = env => {
-  isProd = env === 'production'
-
-  const wpkBuildConf = {
-    context: buildConf.ctx,
-    entry: {
-      'main': `./${buildConf.srcDir}js/main.js`,
-      ...utils.injectPgs.entries(),
-    },
-    output: {
-      chunkFilename: 'js/[name].[chunkhash].chunk.js',
-      filename: 'js/[name].[hash].js',
-      path: `${buildConf.ctx}${buildConf.optPath}`,
-      publicPath: '/',
-    },
-    plugins: [
-      ...utils.injectPgs.htmlWpkPlugin(),
-    ],
-  }
-
-  setAlias(wpkBuildConf)
-  setLoaders(wpkBuildConf)
-
-  return merge(wpkBuildConf, wpkConf[isProd ? 'prod' : 'dev'])
+module.exports = {
+  context: buildConf.ctx,
+  entry: {
+    'main': `./${buildConf.srcDir}js/main.js`,
+    ...utils.injectPgs.entries(),
+  },
+  module: {
+    rules: getModuleRules()
+  },
+  output: {
+    chunkFilename: 'js/[name].[chunkhash].chunk.js',
+    filename: 'js/[name].[hash].js',
+    path: `${buildConf.ctx}${buildConf.optPath}`,
+    publicPath: '/',
+  },
+  resolve: {
+    alias: getAlias(),
+  },
+  plugins: [
+    ...utils.injectPgs.htmlWpkPlugin(),
+  ],
 }
 
 /**
  * 设置路径别名
  */
-function setAlias(conf) {
-  if (typeof conf.resolve !== 'object') {
-    conf.resolve = {}
-  }
-
-  conf.resolve.alias = {
+function getAlias() {
+  return {
     api: `${buildConf.ctx}${buildConf.srcDir}js/api/`,
     assets: `${buildConf.ctx}${buildConf.srcDir}${buildConf.assetsDir}`,
     config: `${buildConf.ctx}config/`,
@@ -62,26 +49,20 @@ function setAlias(conf) {
 }
 
 /**
- * 设置 loaders
+ * 设置模块解析规则
  */
-function setLoaders(conf) {
-  if (typeof conf.module !== 'object') {
-    conf.module = {}
-  }
+function getModuleRules() {
+  return [
+    getEslintLoader(),
+    getBabelLoader(),
+    getCssLoader(),
+    getHtmlLoader(),
+    getSvgSpritesLoader(),
+    getUrlLoader(),
+  ]
 
-  const rules = []
-
-  setEslintLoader(rules)
-  setBabelLoader(rules)
-  setCssLoader(rules)
-  setHtmlLoader(rules)
-  setSvgSpritesLoader(rules)
-  setUrlLoader(rules)
-
-  conf.module.rules = rules
-
-  function setBabelLoader(rules) {
-    rules.push({
+  function getBabelLoader() {
+    return {
       exclude: /node_modules/,
       test: /\.js$/,
       use: [{
@@ -91,14 +72,14 @@ function setLoaders(conf) {
           configFile: './build/babel.conf.js'
         }
       }, ]
-    })
+    }
   }
 
-  function setCssLoader(rules) {
-    rules.push({
+  function getCssLoader() {
+    return {
       test: /\.(sa|sc|c)ss$/,
       use: [{
-          loader: isProd ? miniCssExtPlugin.loader : 'style-loader',
+          loader: process.env.NODE_ENV === 'production' ? miniCssExtPlugin.loader : 'style-loader',
         },
         {
           loader: 'css-loader',
@@ -130,11 +111,11 @@ function setLoaders(conf) {
           },
         }
       ]
-    })
+    }
   }
 
-  function setEslintLoader(rules) {
-    rules.push({
+  function getEslintLoader() {
+    return {
       enforce: 'pre',
       exclude: /node_modules/,
       test: /\.js$/,
@@ -144,20 +125,20 @@ function setLoaders(conf) {
           configFile: 'build/.eslintrc.js'
         }
       }]
-    })
+    }
   }
 
-  function setHtmlLoader(rules) {
-    rules.push({
+  function getHtmlLoader() {
+    return {
       test: /\.html$/,
       use: [{
         loader: 'html-loader'
       }]
-    })
+    }
   }
 
-  function setSvgSpritesLoader() {
-    rules.push({
+  function getSvgSpritesLoader() {
+    return {
       test: /\.svg$/,
       use: [{
         loader: 'svg-sprite-loader',
@@ -165,11 +146,11 @@ function setLoaders(conf) {
           symbolId: 'ic-[name]',
         },
       }]
-    })
+    }
   }
 
-  function setUrlLoader(rules) {
-    rules.push({
+  function getUrlLoader() {
+    return {
       exclude: /node_modules/,
       test: /\.(png|jpg|jpeg|gif)$/,
       use: [{
@@ -182,10 +163,10 @@ function setLoaders(conf) {
             const imgDir = `${utils.pathSepToPosix(`${path.dirname(file)}/`)}` // 图片所在路径。例 D:/webpackSample/src/assets/imgs/icons/
             const relPath = `${imgDir.substr([imgDir.indexOf(imgsDir) + imgsDir.length])}` // 当前图片与项目图片资源目录的路径之差。例 ''(imgs 目录) 或 'icons'(icons 子目录)
 
-            return `${isProd ? `${imgsDir}${relPath}` : '[path]'}[hash].[ext]`
+            return `${process.env.NODE_ENV === 'production' ? `${imgsDir}${relPath}` : '[path]'}[hash].[ext]`
           },
         }
       }]
-    })
+    }
   }
 }

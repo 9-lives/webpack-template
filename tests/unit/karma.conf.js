@@ -24,19 +24,19 @@ module.exports = function karmaConfig(config) {
     reporters: [
       // 'spec',
       'mocha',
-      'coverage',
+      // 'coverage',
     ],
     webpack: webpackConfig,
-    coverageReporter: {
-      dir: './coverage',
-      reporters: [{
-          type: 'lcov',
-          subdir: '.'
-        },
-        {
-          type: 'text-summary'
-        }
-      ]
-    }
+    // coverageReporter: {
+    //   dir: './coverage',
+    //   reporters: [{
+    //       type: 'lcov',
+    //       subdir: '.'
+    //     },
+    //     {
+    //       type: 'text-summary'
+    //     }
+    //   ]
+    // }
   })
 }
