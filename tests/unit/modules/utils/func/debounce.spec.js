@@ -11,7 +11,13 @@ describe('utils/func/debounce', () => {
   })
   it('expect to return a function', () => {
     expect(debounce({
-      callback: () => {}
+      callback: () => {},
     })).to.be.a('function')
+  })
+  it('expect to execute callback function', done => {
+    debounce({
+      callback: done,
+      threshold: 0,
+    })()
   })
 })

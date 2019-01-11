@@ -1,11 +1,10 @@
-let webpackConfig = require('../../build/wpk.test.conf')
+const wpkConfig = require('../../build/wpk.test.conf')
 
-module.exports = function karmaConfig(config) {
+module.exports = config => {
   config.set({
     browsers: [
       'ChromeHeadless',
       'FirefoxHeadless',
-      'IE',
     ],
     customLaunchers: {
       FirefoxHeadless: {
@@ -20,23 +19,21 @@ module.exports = function karmaConfig(config) {
     preprocessors: {
       './index.js': ['webpack']
     },
-    // reporters: ['spec', 'coverage'],
     reporters: [
-      // 'spec',
       'mocha',
-      // 'coverage',
-    ],
-    webpack: webpackConfig,
-    // coverageReporter: {
-    //   dir: './coverage',
-    //   reporters: [{
-    //       type: 'lcov',
-    //       subdir: '.'
-    //     },
-    //     {
-    //       type: 'text-summary'
-    //     }
-    //   ]
-    // }
+    ].concat(process.env.MODE === 'coverage' ? ['coverage'] : []),
+    coverageReporter: {
+      dir: './coverage',
+      reporters: [{
+          type: 'lcov',
+          subdir: '.'
+        },
+        {
+          type: 'text-summary'
+        }
+      ]
+    },
+    singleRun: process.env.MODE === 'coverage',
+    webpack: wpkConfig,
   })
 }
