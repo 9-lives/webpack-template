@@ -6,16 +6,19 @@ import {
 } from 'utils/cookie/remove'
 
 describe('utils/cookie/remove', () => {
+  let c = 'testK=testV'
+
   before(() => {
-    document.cookie = 'testK=testV;'
+    document.cookie = c
   })
 
-  it('expect for a function', () => {
+  it('is a function', () => {
     expect(remove).to.be.a('function')
   })
-  it('expect to remove cookie', () => {
+  it('remove cookie successfully', () => {
     remove({
       k: 'testK',
     })
+    expect(document.cookie.indexOf(c)).to.equal(-1)
   })
 })

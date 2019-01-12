@@ -121,9 +121,6 @@ function getModuleRules() {
       test: /\.js$/,
       use: [{
         loader: 'eslint-loader',
-        options: {
-          configFile: 'build/.eslintrc.js'
-        }
       }]
     }
   }

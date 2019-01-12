@@ -17,6 +17,6 @@ function addGlobalErrListener() {
 /**
  * app 公共入口点
  */
-utils.event.domContentLoaded(() => {
+utils.dom.event.contentLoaded(() => {
   addGlobalErrListener()
 })

@@ -1,18 +1,26 @@
 import { cookie } from './cookie'
-import { event } from './event'
+import { dom } from './dom'
 import { func } from './func'
 import { log } from './log'
 import { network } from './network'
 import { object } from './object'
 
+import { deepFreeze } from 'utils/object/deepFreeze'
+
 /**
  * 工具包
  */
-export const utils = {
+const utils = {
   cookie,
-  event,
+  dom,
   func,
   log,
   network,
   object,
+}
+
+deepFreeze(utils)
+
+export {
+  utils,
 }

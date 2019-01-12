@@ -5,5 +5,5 @@ import {
   utils
 } from 'utils'
 
-utils.event.domContentLoaded(() => {
+utils.dom.event.contentLoaded(() => {
 })

@@ -5,15 +5,16 @@
  */
 export function throttle ({ callback }) {
   let isRunning // 运行时标识
+  let rqFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame
 
-  return function (...args) {
+  return rqFrame ? function (...args) {
     if (!isRunning) {
-      window.requestAnimationFrame(timestamp => {
+      rqFrame(timestamp => {
         Reflect.apply(callback, this, args)
         isRunning = false
       })
     }
 
     isRunning = true
-  }
+  } : callback
 }

@@ -15,15 +15,15 @@ describe('utils/cookie/get', () => {
     document.cookie = `${c}expires=${new Date(0)};`
   })
 
-  it('expect for a function', () => {
+  it('is a function', () => {
     expect(get).to.be.a('function')
   })
-  it(`expect to return 'undefined'`, () => {
+  it(`return undefined without cookie`, () => {
     expect(get({
       k: '_test',
     })).to.be.a('undefined')
   })
-  it(`expect to return string`, () => {
+  it(`return string when pass a key of cookie as parameter`, () => {
     const str = get({
       k: 'testK',
     })
@@ -31,7 +31,7 @@ describe('utils/cookie/get', () => {
     expect(str).to.be.a('string')
     expect(str.length > 0).to.equal(true)
   })
-  it(`expect to return an object`, () => {
+  it(`return an object because of no parameter passed`, () => {
     expect(get()).to.be.a('object')
   })
 })
