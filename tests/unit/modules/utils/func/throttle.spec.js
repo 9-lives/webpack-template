@@ -1,14 +1,20 @@
-import { expect } from 'chai'
-import { throttle } from 'utils/func/throttle'
-/* eslint-disable */
+import {
+  expect,
+} from 'chai'
+import {
+  throttle,
+} from 'utils/func/throttle'
+
 describe('utils/func/throttle', () => {
-  it('expect for a function', () => {
+  it('is a function', () => {
     expect(throttle).to.be.a('function')
   })
-  it('expect to return a function', () => {
-    expect(throttle({ callback () {} })).to.be.a('function')
+  it('return a function', () => {
+    expect(throttle({
+      callback() {}
+    })).to.be.a('function')
   })
-  it('expect to execute callback function', (done) => {
+  it('execute callback function', (done) => {
     throttle({
       callback: done,
     })()

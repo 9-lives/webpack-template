@@ -11,6 +11,6 @@ export function debounce ({ callback = () => {}, threshold = 500 } = {}) {
     clearTimeout(timer)
     timer = setTimeout(() => {
       Reflect.apply(callback, this, args)
-    }, threshold)
+    }, typeof timer === 'undefined' ? 0 : threshold)
   }
 }

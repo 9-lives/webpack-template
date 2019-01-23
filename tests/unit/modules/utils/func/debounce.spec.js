@@ -6,15 +6,15 @@ import {
 } from 'utils/func/debounce'
 
 describe('utils/func/debounce', () => {
-  it('expect for a function', () => {
+  it('is a function', () => {
     expect(debounce).to.be.a('function')
   })
-  it('expect to return a function', () => {
+  it('return a function can be executed', () => {
     expect(debounce({
       callback: () => {},
     })).to.be.a('function')
   })
-  it('expect to execute callback function', done => {
+  it('execute callback function', done => {
     debounce({
       callback: done,
       threshold: 0,
