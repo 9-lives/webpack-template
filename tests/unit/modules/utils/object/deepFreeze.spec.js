@@ -1,8 +1,8 @@
 import {
-  expect
+  expect,
 } from 'chai'
 import {
-  deepFreeze
+  deepFreeze,
 } from 'utils/object/deepFreeze'
 
 describe('utils/object/deepFreeze', () => {
@@ -14,7 +14,7 @@ describe('utils/object/deepFreeze', () => {
     },
   })
 
-  it('expect to be deep frozen', () => {
+  it('freeze an object recursively', () => {
     recursiveExpect(o)
   })
 })
