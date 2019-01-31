@@ -8,13 +8,13 @@ import {
 describe('utils/dom/element/getScrollBarHt', () => {
   const scroll = 600 // 滚动距离
 
-  it('expect for a function', () => {
+  it('is a function', () => {
     expect(getScrollBarHt).to.be.a('function')
   })
-  it('expect to return a TypeError', () => {
+  it('return a TypeError', () => {
     expect(getScrollBarHt).to.throw(TypeError)
   })
-  it('expect to return scroll bar height of root element', () => {
+  it(`return scroll bar's height of root element`, () => {
     const div = document.createElement('div')
 
     div.style.height = '4000px'
@@ -29,7 +29,7 @@ describe('utils/dom/element/getScrollBarHt', () => {
     document.body.removeChild(div)
     document.body.scrollTop = document.documentElement.scrollTop = 0
   })
-  it('expect to return scroll bar height of element', () => {
+  it(`return scroll bar's height of element`, () => {
     const div = document.createElement('div')
     const wrapper = document.createElement('div')
 

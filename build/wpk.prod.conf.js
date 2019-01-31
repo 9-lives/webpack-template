@@ -4,11 +4,8 @@ const merge = require('webpack-merge')
 const miniCssExtPlugin = require('mini-css-extract-plugin')
 const optimizeCssAssetsWpkPlugin = require('optimize-css-assets-webpack-plugin')
 const terserWpkPlugin = require('terser-webpack-plugin')
-
 const buildConf = require('./build.conf')
 const baseConf = require('./wpk.base.conf')
-
-// const utils = require('./utils')
 
 /**
  * webpack 生产模式配置
@@ -34,7 +31,6 @@ module.exports = merge(baseConf, {
     },
     splitChunks: {
       cacheGroups: {
-        // ...utils.injectPgs.css(),
         common: {
           chunks: 'initial',
           minChunks: 3,

@@ -1,16 +1,16 @@
 import {
-  expect
+  expect,
 } from 'chai'
 import {
   post,
 } from 'utils/network/ajax/post'
 
 describe('utils/network/ajax/post', () => {
-  it('expect for a function', () => {
+  it('is a function', () => {
     expect(post).to.be.a('function')
   })
   // 失败
-  it('expect to return a rejected promise', done => {
+  it('return a rejected promise when error occured', done => {
     expect(post({
       url: '',
     }).catch(e => {
@@ -19,7 +19,7 @@ describe('utils/network/ajax/post', () => {
     })).to.be.a('promise')
   })
   // 成功
-  it('expect to return a object which has data and status properties', done => {
+  it('success callback function gets an object which has two properties,data and status, as its argument', done => {
     post({
       url: '_success',
     }).then(d => {

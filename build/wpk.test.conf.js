@@ -1,42 +1,13 @@
-const buildConf = require('./build.conf')
+const merge = require('webpack-merge')
+const baseConf = require('./wpk.base.conf')
 
 /**
  * webpack 单元测试配置
  */
-module.exports = {
+module.exports = merge(baseConf, {
   devtool: 'inline-source-map',
   mode: 'development',
-  module: {
-    rules: [{
-        enforce: 'pre',
-        exclude: /node_modules/,
-        test: /\.js$/,
-        use: [{
-          loader: 'eslint-loader',
-        }]
-      },
-      {
-        exclude: /node_modules/,
-        test: /\.js$/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            configFile: './build/babel.conf.js'
-          }
-        }, ]
-      }
-    ]
-  },
   optimization: {
     nodeEnv: 'test',
   },
-  resolve: {
-    alias: {
-      api: `${buildConf.ctx}${buildConf.srcDir}js/api/`,
-      config: `${buildConf.ctx}config/`,
-      constants: `${buildConf.ctx}${buildConf.srcDir}js/constants/`,
-      js: `${buildConf.ctx}${buildConf.srcDir}js/`,
-      utils: `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
-    }
-  }
-}
+})
