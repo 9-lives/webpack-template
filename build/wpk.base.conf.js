@@ -1,9 +1,11 @@
 const miniCssExtPlugin = require('mini-css-extract-plugin')
 const path = require('path')
-
 const buildConf = require('./build.conf')
-
-const utils = require('./utils')
+const {
+  getAlias,
+  injectPgs,
+  pathSepToPosix,
+} = require('./utils')
 
 
 /**
@@ -13,7 +15,7 @@ module.exports = {
   context: buildConf.ctx,
   entry: {
     'main': `./${buildConf.srcDir}js/main.js`,
-    ...utils.injectPgs.entries(),
+    ...injectPgs.entries(),
   },
   module: {
     rules: getModuleRules()
@@ -28,24 +30,8 @@ module.exports = {
     alias: getAlias(),
   },
   plugins: [
-    ...utils.injectPgs.htmlWpkPlugin(),
+    ...injectPgs.htmlWpkPlugin(),
   ],
-}
-
-/**
- * 设置路径别名
- */
-function getAlias() {
-  return {
-    api: `${buildConf.ctx}${buildConf.srcDir}js/api/`,
-    assets: `${buildConf.ctx}${buildConf.srcDir}${buildConf.assetsDir}`,
-    config: `${buildConf.ctx}config/`,
-    constants: `${buildConf.ctx}${buildConf.srcDir}js/constants/`,
-    html: `${buildConf.ctx}${buildConf.srcDir}${buildConf.htmlDir}`,
-    js: `${buildConf.ctx}${buildConf.srcDir}js/`,
-    ui: `${buildConf.ctx}${buildConf.srcDir}${buildConf.uiDir}`,
-    utils: `${buildConf.ctx}${buildConf.srcDir}js/utils/`,
-  }
 }
 
 /**
@@ -67,10 +53,6 @@ function getModuleRules() {
       test: /\.js$/,
       use: [{
         loader: 'babel-loader',
-        options: {
-          // ?bug: configFile 'build/babel.conf.js' 无效，改为 ./
-          configFile: './build/babel.conf.js'
-        }
       }, ]
     }
   }
@@ -89,11 +71,6 @@ function getModuleRules() {
         },
         {
           loader: 'postcss-loader',
-          options: {
-            config: {
-              path: 'build'
-            }
-          }
         },
         {
           loader: 'sass-loader',
@@ -157,7 +134,7 @@ function getModuleRules() {
           // 生产环境保留 assets 内图片目录的结构
           name: file => {
             const imgsDir = `${buildConf.assetsDir}${buildConf.imgsSubDir}` // 图片资源目录。例 assets/imgs/
-            const imgDir = `${utils.pathSepToPosix(`${path.dirname(file)}/`)}` // 图片所在路径。例 D:/webpackSample/src/assets/imgs/icons/
+            const imgDir = `${pathSepToPosix(`${path.dirname(file)}/`)}` // 图片所在路径。例 D:/webpackSample/src/assets/imgs/icons/
             const relPath = `${imgDir.substr([imgDir.indexOf(imgsDir) + imgsDir.length])}` // 当前图片与项目图片资源目录的路径之差。例 ''(imgs 目录) 或 'icons'(icons 子目录)
 
             return `${process.env.NODE_ENV === 'production' ? `${imgsDir}${relPath}` : '[path]'}[hash].[ext]`

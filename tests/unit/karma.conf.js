@@ -14,9 +14,13 @@ module.exports = config => config.set({
     },
   },
   frameworks: ['mocha'],
-  files: ['./index.js'],
+  files: [
+    '../../src/js/**/*.js',
+    './index.js'
+  ],
   preprocessors: {
-    './index.js': ['webpack']
+    './index.js': ['webpack'],
+    '../../src/js/**/*.js': ['webpack'],
   },
   reporters: [
     'mocha',

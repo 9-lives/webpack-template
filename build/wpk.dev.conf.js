@@ -1,7 +1,6 @@
 const buildConf = require('./build.conf')
 const merge = require('webpack-merge')
 const wpk = require('webpack')
-
 const baseConf = require('./wpk.base.conf')
 
 /**
